@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {Layout, Menu, Modal, Input, Button, Tag} from 'antd';
 import { format } from 'date-fns';
-import { DataType } from "./config/types/types.ts";
+import {DataType, Options} from "./config/types/types.ts";
 import products from './config/data/products.json';
 import pricePlans from './config/data/pricePlans.json';
 import pages from './config/data/pages.json';
@@ -22,6 +22,14 @@ const getColumns = <T extends DataType>(data: T[]) => {
   return Object.keys(data[0]).map(key => {
     const typedKey = key as keyof T;
 
+    if (key === 'options') {
+      return {
+        title: key.charAt(0).toUpperCase() + key.slice(1),
+        dataIndex: key,
+        key: key,
+        render: (options: Options | undefined) => options ? `${options.size}, ${options.amount}` : 'N/A',
+      };
+    }
     if (typeof data[0][typedKey] === 'boolean') {
       return {
         title: key.charAt(0).toUpperCase() + key.slice(1),

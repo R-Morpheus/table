@@ -1,6 +1,13 @@
+export interface Options {
+  size: string;
+  amount: number;
+}
+
+
 export interface Product {
   id: number;
   name: string;
+  options: Options;
   active: boolean;
   createdAt: string;
 }
